@@ -1,4 +1,6 @@
-create table autores(
+﻿CREATE SCHEMA hobbies;
+
+create table hobbies.autores(
 
   id serial primary key,
   nome varchar(100),
@@ -12,7 +14,7 @@ create table autores(
 );
 
 
-create table editoras(
+create table hobbies.editoras(
 
   id serial primary key,
   nome varchar(200),
@@ -23,7 +25,7 @@ create table editoras(
 
 );
 
-create table enderecos(
+create table hobbies.enderecos(
 
   id serial primary key,
   cep integer,
@@ -35,10 +37,10 @@ create table enderecos(
   autor_id integer not null,
   data_hora_criacao timestamp default current_timestamp,
   data_hora_ultima_modificacao timestamp default current_timestamp,
-  foreign key (autor_id) references autores (id)
+  foreign key (autor_id) references hobbies.autores (id)
 );
 
-create table livros(
+create table hobbies.livros(
 
   id serial primary key,
   titulo varchar(200),
@@ -54,16 +56,14 @@ create table livros(
   editora_id integer not null,
   data_hora_criacao timestamp default current_timestamp,
   data_hora_ultima_modificacao timestamp default current_timestamp,
-  foreign key (editora_id) references editoras (id)
+  foreign key (editora_id) references hobbies.editoras (id)
 );
 
-create table autores_livros(
-	
+create table hobbies.autores_livros(
+
   id serial primary key,
   autor_id integer not null,
   livro_id integer not null,
-  foreign key (autor_id) references autores (id),
-  foreign key (livro_id) references livros (id)
+  foreign key (autor_id) references hobbies.autores (id),
+  foreign key (livro_id) references hobbies.livros (id)
 );
-
-
