@@ -22,4 +22,15 @@ public class AutorServiceImpl implements AutorService {
     public List<Autor> listarAutores() {
         return this.autorRepository.findAll();
     }
+
+    @Override
+    public Autor salvarAutor(Autor autor) {
+        autor.setId(null);
+        verificarEmail(autor.getEmail());
+        return null;
+    }
+
+    private void verificarEmail(String email) {
+
+    }
 }

@@ -1,14 +1,19 @@
 package br.com.gerenciarhobbies.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
+
+import static br.com.gerenciarhobbies.shared.Mensagens.MENSAGEM_CAMPO_OBRIGATORIO;
 
 @Table(schema = "hobbies", name = "autores")
 @Entity
@@ -19,22 +24,29 @@ public class Autor implements Serializable {
     @Column
     private Long id;
 
+    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column
     private String nome;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "nome_artistico")
     private String nomeArtistico;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 
+    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column
     private String sexo;
 
+    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column
     private String telefone;
 
-    @Column
+    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
+    @Column(unique = true)
     private String email;
 
     @JsonIgnore
@@ -137,7 +149,7 @@ public class Autor implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getNomeArtistico(), getDataNascimento(), getSexo(), getTelefone(), getEmail(), getDataHoraCriacao(), getDataHoraUltimaModificacao());
+        return Objects.hash(getId(), getNome(), getNomeArtistico(), getDataNascimento(), getSexo(), getTelefone(), getEmail());
     }
 
     @Override

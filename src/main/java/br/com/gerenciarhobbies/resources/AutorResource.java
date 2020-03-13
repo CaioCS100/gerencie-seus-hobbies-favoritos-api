@@ -4,10 +4,12 @@ import br.com.gerenciarhobbies.domain.Autor;
 import br.com.gerenciarhobbies.services.AutorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,8 @@ public class AutorResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> cadastrar() {
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody Autor autor) {
+
         return null;
     }
 }
