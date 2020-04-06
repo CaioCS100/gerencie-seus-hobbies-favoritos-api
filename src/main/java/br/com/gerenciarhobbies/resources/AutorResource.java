@@ -2,6 +2,7 @@ package br.com.gerenciarhobbies.resources;
 
 import br.com.gerenciarhobbies.domain.Autor;
 import br.com.gerenciarhobbies.services.AutorService;
+import static br.com.gerenciarhobbies.shared.Constantes.URI.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/autor")
+@RequestMapping(URI_AUTOR)
 public class AutorResource {
 
     private final AutorService autorService;

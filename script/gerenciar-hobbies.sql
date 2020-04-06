@@ -7,8 +7,10 @@ create table hobbies.autores(
   nome_artistico varchar(100),
   data_nascimento date,
   sexo varchar(1),
+  cpf varchar(11),
   telefone varchar(15),
   email varchar(100) unique,
+  foto bytea,
   data_hora_criacao timestamp default current_timestamp,
   data_hora_ultima_modificacao timestamp default current_timestamp
 );
