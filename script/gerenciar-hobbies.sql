@@ -1,5 +1,16 @@
 ﻿CREATE SCHEMA hobbies;
 
+create table hobbies.usuarios(
+    id serial primary key,
+    nome varchar(100),
+    data_nascimento date,
+    sexo varchar(1),
+    telefone varchar(15),
+    email varchar(100) unique,
+    data_hora_criacao timestamp default current_timestamp,
+    data_hora_ultima_modificacao timestamp default current_timestamp
+);
+
 create table hobbies.autores(
 
   id serial primary key,
@@ -7,14 +18,10 @@ create table hobbies.autores(
   nome_artistico varchar(100),
   data_nascimento date,
   sexo varchar(1),
-  cpf varchar(11),
-  telefone varchar(15),
   email varchar(100) unique,
-  foto bytea,
   data_hora_criacao timestamp default current_timestamp,
   data_hora_ultima_modificacao timestamp default current_timestamp
 );
-
 
 create table hobbies.editoras(
 
@@ -68,4 +75,25 @@ create table hobbies.autores_livros(
   livro_id integer not null,
   foreign key (autor_id) references hobbies.autores (id),
   foreign key (livro_id) references hobbies.livros (id)
+);
+
+create table hobbies.imagens(
+    id serial primary key,
+    foto bytea
+);
+
+create table hobbies.autores_imagens(
+    id serial primary key,
+    autor_id integer not null,
+    imagem_id integer not null,
+    foreign key (autor_id) references hobbies.autores (id),
+    foreign key (imagem_id) references hobbies.imagens (id)
+);
+
+create table hobbies.usuarios_imagens(
+    id serial primary key,
+    usuario_id integer not null,
+    imagem_id integer not null,
+    foreign key (usuario_id) references hobbies.usuarios (id),
+    foreign key (imagem_id) references hobbies.imagens (id)
 );
