@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -31,18 +32,13 @@ public class Autor implements Serializable {
     @Column(name = "nome_artistico")
     private String nomeArtistico;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column(name = "data_nascimento")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column
     private String sexo;
-
-    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
-    @Column
-    private String telefone;
 
     @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
     @Column(unique = true)
@@ -82,11 +78,11 @@ public class Autor implements Serializable {
         this.nomeArtistico = nomeArtistico;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -96,14 +92,6 @@ public class Autor implements Serializable {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public String getEmail() {
@@ -140,7 +128,6 @@ public class Autor implements Serializable {
                 Objects.equals(getNomeArtistico(), autor.getNomeArtistico()) &&
                 Objects.equals(getDataNascimento(), autor.getDataNascimento()) &&
                 Objects.equals(getSexo(), autor.getSexo()) &&
-                Objects.equals(getTelefone(), autor.getTelefone()) &&
                 Objects.equals(getEmail(), autor.getEmail()) &&
                 Objects.equals(getDataHoraCriacao(), autor.getDataHoraCriacao()) &&
                 Objects.equals(getDataHoraUltimaModificacao(), autor.getDataHoraUltimaModificacao());
@@ -148,7 +135,7 @@ public class Autor implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getNomeArtistico(), getDataNascimento(), getSexo(), getTelefone(), getEmail());
+        return Objects.hash(getId());
     }
 
     @Override
@@ -159,7 +146,6 @@ public class Autor implements Serializable {
                 ", nomeArtistico='" + nomeArtistico + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", sexo='" + sexo + '\'' +
-                ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
                 ", dataHoraCriacao=" + dataHoraCriacao +
                 ", dataHoraUltimaModificacao=" + dataHoraUltimaModificacao +
