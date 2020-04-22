@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -29,8 +31,8 @@ public class AutorResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody Autor autor) {
-
-        return null;
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody Autor autor) throws URISyntaxException {
+        Autor autorSalvo = this.autorService.salvarAutor(autor);
+        return ResponseEntity.created(new URI(URI_AUTOR + autorSalvo.getId())).body(autorSalvo);
     }
 }

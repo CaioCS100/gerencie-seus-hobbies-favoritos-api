@@ -8,5 +8,6 @@ public interface Constantes {
 
     interface Mensagens {
         String MENSAGEM_CAMPO_OBRIGATORIO = "Esse campo é de preenchimento obrigatório.";
+        String EMAIL_EXISTENTE = "Esse email já está cadastrado";
     }
 }

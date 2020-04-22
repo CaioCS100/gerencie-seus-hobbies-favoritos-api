@@ -1,8 +1,10 @@
 package br.com.gerenciarhobbies.services.impl;
 
 import br.com.gerenciarhobbies.domain.Autor;
+import br.com.gerenciarhobbies.exceptions.EmailException;
 import br.com.gerenciarhobbies.repository.AutorRepository;
 import br.com.gerenciarhobbies.services.AutorService;
+import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +28,12 @@ public class AutorServiceImpl implements AutorService {
     @Override
     public Autor salvarAutor(Autor autor) {
         autor.setId(null);
-        verificarEmail(autor.getEmail());
-        return null;
+        verificarEmailCadastro(autor.getEmail());
+        return this.autorRepository.save(autor);
     }
 
-    private void verificarEmail(String email) {
-
+    private void verificarEmailCadastro(String email) {
+        if (this.autorRepository.countAllByEmail(email) > 0)
+            throw new EmailException(EMAIL_EXISTENTE);
     }
 }
