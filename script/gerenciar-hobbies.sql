@@ -1,4 +1,12 @@
-﻿CREATE SCHEMA hobbies;
+﻿CREATE SCHEMA hobbies
+
+create table hobbies.generos (
+	id serial primary key,
+	descricao character varying(255) not null,
+	-- id_usuario integer not null,
+	data_criacao timestamp default current_timestamp,
+	data_ultima_modificacao timestamp default current_timestamp
+);
 
 create table hobbies.usuarios(
     id serial primary key,
@@ -80,20 +88,4 @@ create table hobbies.autores_livros(
 create table hobbies.imagens(
     id serial primary key,
     foto bytea
-);
-
-create table hobbies.autores_imagens(
-    id serial primary key,
-    autor_id integer not null,
-    imagem_id integer not null,
-    foreign key (autor_id) references hobbies.autores (id),
-    foreign key (imagem_id) references hobbies.imagens (id)
-);
-
-create table hobbies.usuarios_imagens(
-    id serial primary key,
-    usuario_id integer not null,
-    imagem_id integer not null,
-    foreign key (usuario_id) references hobbies.usuarios (id),
-    foreign key (imagem_id) references hobbies.imagens (id)
 );

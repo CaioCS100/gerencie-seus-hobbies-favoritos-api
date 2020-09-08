@@ -2,8 +2,11 @@ package br.com.gerenciarhobbies.shared;
 
 public interface Constantes {
 
+    String SIMBOLO_PORCENTAGEM = "%";
+
     interface URI {
         String URI_AUTOR = "api/autor";
+        String URI_GENERO = "api/genero";
     }
 
     interface Mensagens {

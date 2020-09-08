@@ -1,8 +1,6 @@
 package br.com.gerenciarhobbies.domain;
 
 
-import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,8 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
+
+import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.MENSAGEM_CAMPO_OBRIGATORIO;
 
 @Table(schema = "hobbies", name = "autores")
 @Entity
