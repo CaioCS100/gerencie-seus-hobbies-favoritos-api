@@ -19,8 +19,13 @@ public class GeneroServiceImpl implements GeneroService {
     }
 
     @Override
-    public void salvar(Genero genero) {
-        this.generoRepository.salvar(genero);
+    public Genero cadastrar(Genero genero) {
+        return this.generoRepository.salvar(genero);
+    }
+
+    @Override
+    public Genero atualizar(Genero genero) {
+        return this.generoRepository.atualizar(genero);
     }
 
     @Override
@@ -34,5 +39,13 @@ public class GeneroServiceImpl implements GeneroService {
             System.out.println("lançar uma Excecao");
 
         return this.generoRepository.buscar(id);
+    }
+
+    @Override
+    public void deletar(Long id) {
+        if (id == null)
+            System.out.println("lançar uma Excecao");
+
+        this.generoRepository.deletar(id);
     }
 }

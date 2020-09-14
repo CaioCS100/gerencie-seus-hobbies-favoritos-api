@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface GeneroService {
 
-    void salvar(Genero genero);
+    Genero cadastrar(Genero genero);
+
+    Genero atualizar(Genero genero);
 
     List<Genero> listar();
 
     Genero buscar(Long id);
+
+    void deletar(Long id);
 }

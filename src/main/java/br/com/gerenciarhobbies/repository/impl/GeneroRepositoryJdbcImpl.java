@@ -3,9 +3,12 @@ package br.com.gerenciarhobbies.repository.impl;
 import br.com.gerenciarhobbies.domain.Genero;
 import br.com.gerenciarhobbies.repository.GeneroRepositoryJdbc;
 import br.com.gerenciarhobbies.repository.mapper.GeneroMapper;
+import br.com.gerenciarhobbies.repository.mapper.UltimoIdCadastradoMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,27 +25,41 @@ public class GeneroRepositoryJdbcImpl implements GeneroRepositoryJdbc {
     }
 
     @Override
-    public void salvar(Genero genero) {
+    public Genero salvar(Genero genero) {
         this.jdbcTemplate.update(SQL_INSERIR_GENERO, genero.getDescricao());
+        Long id = retornarUltimoIdCadastrado();
+        return buscar(id);
+    }
+
+    @Override
+    public Genero atualizar(Genero genero) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        this.jdbcTemplate.update(SQL_ATUALIZAR_GENERO, genero.getDescricao(), localDateTime, genero.getId());
+        return buscar(genero.getId());
     }
 
     @Override
     public Genero buscar(Long id) {
-        Genero genero = new Genero().id(id);
+        try {
+            Genero genero = new Genero().id(id);
 
-        return this.jdbcTemplate.queryForObject(
-                obterSqlConsulta(genero),
-                obterParametrosConsulta(genero),
-                new GeneroMapper());
+            return this.jdbcTemplate.queryForObject(
+                    obterSqlConsulta(genero),
+                    obterParametrosConsulta(genero),
+                    new GeneroMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            return new Genero();
+        }
     }
 
     @Override
     public List<Genero> listar() {
-        Genero genero = new Genero();
+        return this.jdbcTemplate.query(SQL_CONSULTAR_GENERO, new GeneroMapper());
+    }
 
-        return this.jdbcTemplate.query(obterSqlConsulta(genero),
-                obterParametrosConsulta(genero),
-                new GeneroMapper());
+    @Override
+    public void deletar(Long id) {
+        this.jdbcTemplate.update(SQL_DELETAR_GENERO, id);
     }
 
     private String obterSqlConsulta(Genero genero) {
@@ -55,6 +72,12 @@ public class GeneroRepositoryJdbcImpl implements GeneroRepositoryJdbc {
             sql.append(" AND descricao ilke ?");
 
         return sql.toString();
+    }
+
+    private Long retornarUltimoIdCadastrado() {
+        return jdbcTemplate.queryForObject(
+                SQL_CONSULTAR_ID_CADASTRADO,
+                new UltimoIdCadastradoMapper());
     }
 
     private Object[] obterParametrosConsulta(Genero genero) {
