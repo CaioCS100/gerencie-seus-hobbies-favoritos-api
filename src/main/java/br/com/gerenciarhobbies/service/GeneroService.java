@@ -1,4 +1,4 @@
-package br.com.gerenciarhobbies.services;
+package br.com.gerenciarhobbies.service;
 
 import br.com.gerenciarhobbies.domain.Genero;
 
@@ -8,7 +8,7 @@ public interface GeneroService {
 
     Genero cadastrar(Genero genero);
 
-    Genero atualizar(Genero genero);
+    Genero atualizar(Genero genero, Long id);
 
     List<Genero> listar();
 

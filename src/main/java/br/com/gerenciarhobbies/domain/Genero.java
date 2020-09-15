@@ -1,6 +1,7 @@
 package br.com.gerenciarhobbies.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class Genero {
     private Long id;
 
     @NotNull
+    @NotEmpty
     @Column
     private String descricao;
 

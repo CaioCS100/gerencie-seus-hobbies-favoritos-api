@@ -1,4 +1,4 @@
-package br.com.gerenciarhobbies.exceptions;
+package br.com.gerenciarhobbies.exception;
 
 public class EmailException extends RuntimeException {
 

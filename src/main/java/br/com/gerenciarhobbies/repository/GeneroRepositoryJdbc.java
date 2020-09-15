@@ -15,4 +15,6 @@ public interface GeneroRepositoryJdbc {
     List<Genero> listar();
 
     void deletar(Long id);
+
+    Boolean verificarSeDescricaoExiste(Genero genero);
 }

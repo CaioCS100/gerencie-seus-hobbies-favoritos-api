@@ -1,9 +1,9 @@
-package br.com.gerenciarhobbies.services.impl;
+package br.com.gerenciarhobbies.service.impl;
 
 import br.com.gerenciarhobbies.domain.Autor;
-import br.com.gerenciarhobbies.exceptions.EmailException;
+import br.com.gerenciarhobbies.exception.EmailException;
 import br.com.gerenciarhobbies.repository.AutorRepository;
-import br.com.gerenciarhobbies.services.AutorService;
+import br.com.gerenciarhobbies.service.AutorService;
 import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

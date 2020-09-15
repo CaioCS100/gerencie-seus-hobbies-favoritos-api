@@ -1,7 +1,7 @@
-package br.com.gerenciarhobbies.resources;
+package br.com.gerenciarhobbies.resource;
 
 import br.com.gerenciarhobbies.domain.Genero;
-import br.com.gerenciarhobbies.services.GeneroService;
+import br.com.gerenciarhobbies.service.GeneroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +40,7 @@ public class GeneroResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Genero> atualizar(@PathVariable("id") Long id, @Valid @RequestBody Genero genero) {
-        genero.setId(id);
-        return ResponseEntity.ok(this.generoService.atualizar(genero));
+        return ResponseEntity.ok(this.generoService.atualizar(genero, id));
     }
 
     @DeleteMapping("/{id}")

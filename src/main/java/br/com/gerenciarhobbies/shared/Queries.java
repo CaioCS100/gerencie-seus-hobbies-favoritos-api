@@ -13,10 +13,17 @@ public interface Queries {
                 "UPDATE hobbies.generos SET descricao = ?, data_ultima_modificacao = ?  WHERE id = ?";
 
         String SQL_CONSULTAR_GENERO =
-                "SELECT id, descricao, data_criacao, data_ultima_modificacao FROM hobbies.generos WHERE 1 = 1";
+                "SELECT id, descricao, data_criacao, data_ultima_modificacao" +
+                " FROM hobbies.generos" +
+                " WHERE 1 = 1";
 
         String SQL_DELETAR_GENERO =
                 "DELETE FROM hobbies.generos WHERE id = ?";
+
+        String SQL_CONSULTAR_DESCRICAO_EXISTENTE =
+                "SELECT id" +
+                " FROM hobbies.generos" +
+                " WHERE 1 = 1";
     }
 
 }

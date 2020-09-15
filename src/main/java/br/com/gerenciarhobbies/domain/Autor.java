@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.MENSAGEM_CAMPO_OBRIGATORIO;
+import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.CAMPO_OBRIGATORIO;
 
 @Table(schema = "hobbies", name = "autores")
 @Entity
@@ -23,7 +23,7 @@ public class Autor implements Serializable {
     @Column
     private Long id;
 
-    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
+    @NotNull(message = CAMPO_OBRIGATORIO)
     @Column
     private String nome;
 
@@ -31,15 +31,15 @@ public class Autor implements Serializable {
     @Column(name = "nome_artistico")
     private String nomeArtistico;
 
-    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
+    @NotNull(message = CAMPO_OBRIGATORIO)
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
+    @NotNull(message = CAMPO_OBRIGATORIO)
     @Column
     private String sexo;
 
-    @NotNull(message = MENSAGEM_CAMPO_OBRIGATORIO)
+    @NotNull(message = CAMPO_OBRIGATORIO)
     @Column(unique = true)
     private String email;
 

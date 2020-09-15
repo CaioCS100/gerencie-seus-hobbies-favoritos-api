@@ -1,4 +1,4 @@
-package br.com.gerenciarhobbies.services;
+package br.com.gerenciarhobbies.service;
 
 import br.com.gerenciarhobbies.domain.Autor;
 

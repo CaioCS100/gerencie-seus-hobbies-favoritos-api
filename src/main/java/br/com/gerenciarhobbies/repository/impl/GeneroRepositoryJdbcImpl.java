@@ -1,6 +1,7 @@
 package br.com.gerenciarhobbies.repository.impl;
 
 import br.com.gerenciarhobbies.domain.Genero;
+import br.com.gerenciarhobbies.exception.RecursoNaoEncontradoException;
 import br.com.gerenciarhobbies.repository.GeneroRepositoryJdbc;
 import br.com.gerenciarhobbies.repository.mapper.GeneroMapper;
 import br.com.gerenciarhobbies.repository.mapper.UltimoIdCadastradoMapper;
@@ -12,8 +13,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.GENERO_NAO_ENCONTRADO;
 import static br.com.gerenciarhobbies.shared.Constantes.SIMBOLO_PORCENTAGEM;
 import static br.com.gerenciarhobbies.shared.Queries.Genero.*;
+import static br.com.gerenciarhobbies.util.VerificadorUtil.*;
 
 @Repository
 public class GeneroRepositoryJdbcImpl implements GeneroRepositoryJdbc {
@@ -48,7 +51,7 @@ public class GeneroRepositoryJdbcImpl implements GeneroRepositoryJdbc {
                     obterParametrosConsulta(genero),
                     new GeneroMapper());
         } catch (EmptyResultDataAccessException ex) {
-            return new Genero();
+            throw new RecursoNaoEncontradoException(GENERO_NAO_ENCONTRADO + id);
         }
     }
 
@@ -62,33 +65,55 @@ public class GeneroRepositoryJdbcImpl implements GeneroRepositoryJdbc {
         this.jdbcTemplate.update(SQL_DELETAR_GENERO, id);
     }
 
+    @Override
+    public Boolean verificarSeDescricaoExiste(Genero genero) {
+        List<Genero> listaGeneros = this.jdbcTemplate.query(
+                obterSqlConsultaDescricaoExistente(genero),
+                obterParametrosConsulta(genero),
+                new GeneroMapper());
+
+        return listaNulaOuVazia(listaGeneros) ? false : true;
+    }
+
     private String obterSqlConsulta(Genero genero) {
         StringBuilder sql = new StringBuilder(SQL_CONSULTAR_GENERO);
 
-        if (genero.getId() != null)
+        if (naoEstaNulo(genero.getId()))
             sql.append(" AND id = ?");
 
-        if (genero.getDescricao() != null)
-            sql.append(" AND descricao ilke ?");
+        if (naoEstaNulo(genero.getDescricao()))
+            sql.append(" AND descricao ilike ?");
 
         return sql.toString();
+    }
+
+    private String obterSqlConsultaDescricaoExistente(Genero genero) {
+        StringBuilder sql = new StringBuilder(SQL_CONSULTAR_DESCRICAO_EXISTENTE);
+
+        if (naoEstaNulo(genero.getId()))
+            sql.append(" AND id <> ?");
+
+        if (naoEstaNulo(genero.getDescricao()))
+            sql.append(" AND descricao ilike ?");
+
+        return sql.toString();
+    }
+
+    private Object[] obterParametrosConsulta(Genero genero) {
+        List<Object> parametros = new ArrayList<>();
+
+        if (naoEstaNulo(genero.getId()))
+            parametros.add(genero.getId());
+
+        if (naoEstaNulo(genero.getDescricao()))
+            parametros.add(SIMBOLO_PORCENTAGEM + genero.getDescricao() + SIMBOLO_PORCENTAGEM);
+
+        return parametros.toArray();
     }
 
     private Long retornarUltimoIdCadastrado() {
         return jdbcTemplate.queryForObject(
                 SQL_CONSULTAR_ID_CADASTRADO,
                 new UltimoIdCadastradoMapper());
-    }
-
-    private Object[] obterParametrosConsulta(Genero genero) {
-        List<Object> parametros = new ArrayList<>();
-
-        if (genero.getId() != null)
-            parametros.add(genero.getId());
-
-        if (genero.getDescricao() != null)
-            parametros.add(SIMBOLO_PORCENTAGEM + genero.getDescricao() + SIMBOLO_PORCENTAGEM);
-
-        return parametros.toArray();
     }
 }

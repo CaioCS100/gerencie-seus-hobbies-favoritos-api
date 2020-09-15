@@ -1,7 +1,7 @@
-package br.com.gerenciarhobbies.resources;
+package br.com.gerenciarhobbies.resource;
 
 import br.com.gerenciarhobbies.domain.Autor;
-import br.com.gerenciarhobbies.services.AutorService;
+import br.com.gerenciarhobbies.service.AutorService;
 import static br.com.gerenciarhobbies.shared.Constantes.URI.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
