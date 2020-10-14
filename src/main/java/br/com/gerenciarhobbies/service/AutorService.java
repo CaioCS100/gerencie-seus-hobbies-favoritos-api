@@ -6,7 +6,13 @@ import java.util.List;
 
 public interface AutorService  {
 
-    List<Autor> listarAutores();
+    Autor salvar(Autor autor);
 
-    Autor salvarAutor(Autor autor);
+    List<Autor> listar();
+
+    Autor buscar(Long id);
+
+    Autor atualizar(Autor autor);
+
+    void deletar(Long id);
 }

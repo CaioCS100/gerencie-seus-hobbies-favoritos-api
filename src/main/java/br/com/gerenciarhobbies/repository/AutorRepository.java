@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 
-    Integer countAllByEmail(String email);
+    Integer countByEmail(String email);
+
+    Integer countByEmailAndIdNotIn(String email, Long id);
 }

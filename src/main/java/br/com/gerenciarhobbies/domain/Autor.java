@@ -53,6 +53,8 @@ public class Autor implements Serializable {
     @Column(name = "data_hora_ultima_modificacao")
     private LocalDateTime dataHoraUltimaModificacao;
 
+    public Autor() {}
+
     public Long getId() {
         return id;
     }
@@ -117,24 +119,64 @@ public class Autor implements Serializable {
         this.dataHoraUltimaModificacao = dataHoraUltimaModificacao;
     }
 
+    public Autor id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Autor nome(String nome) {
+        this.nome = nome;
+        return this;
+    }
+
+    public Autor nomeArtistico(String nomeArtistico) {
+        this.nomeArtistico = nomeArtistico;
+        return this;
+    }
+
+    public Autor dataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+        return this;
+    }
+
+    public Autor sexo(String sexo) {
+        this.sexo = sexo;
+        return this;
+    }
+
+    public Autor email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Autor dataHoraCriacao(LocalDateTime dataHoraCriacao) {
+        this.dataHoraCriacao = dataHoraCriacao;
+        return this;
+    }
+
+    public Autor dataHoraUltimaModificacao(LocalDateTime dataHoraUltimaModificacao) {
+        this.dataHoraUltimaModificacao = dataHoraUltimaModificacao;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Autor)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Autor autor = (Autor) o;
-        return Objects.equals(getId(), autor.getId()) &&
-                Objects.equals(getNome(), autor.getNome()) &&
-                Objects.equals(getNomeArtistico(), autor.getNomeArtistico()) &&
-                Objects.equals(getDataNascimento(), autor.getDataNascimento()) &&
-                Objects.equals(getSexo(), autor.getSexo()) &&
-                Objects.equals(getEmail(), autor.getEmail()) &&
-                Objects.equals(getDataHoraCriacao(), autor.getDataHoraCriacao()) &&
-                Objects.equals(getDataHoraUltimaModificacao(), autor.getDataHoraUltimaModificacao());
+        return Objects.equals(id, autor.id) &&
+                Objects.equals(nome, autor.nome) &&
+                Objects.equals(nomeArtistico, autor.nomeArtistico) &&
+                Objects.equals(dataNascimento, autor.dataNascimento) &&
+                Objects.equals(sexo, autor.sexo) &&
+                Objects.equals(email, autor.email) &&
+                Objects.equals(dataHoraCriacao, autor.dataHoraCriacao) &&
+                Objects.equals(dataHoraUltimaModificacao, autor.dataHoraUltimaModificacao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id, nomeArtistico, email,  dataHoraCriacao, dataHoraUltimaModificacao);
     }
 
     @Override
@@ -144,7 +186,7 @@ public class Autor implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", nomeArtistico='" + nomeArtistico + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", sexo='" + sexo + '\'' +
+                ", sexo=" + sexo +
                 ", email='" + email + '\'' +
                 ", dataHoraCriacao=" + dataHoraCriacao +
                 ", dataHoraUltimaModificacao=" + dataHoraUltimaModificacao +

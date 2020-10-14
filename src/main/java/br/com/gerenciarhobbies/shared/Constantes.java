@@ -15,6 +15,7 @@ public interface Constantes {
         String GENERO_NAO_ENCONTRADO = "Não existe um gênero com Id: ";
         String GENERO_JA_CADASTRADO = "Esse gênero já está cadastrado no sistema!";
 
-        String EMAIL_EXISTENTE = "Esse email já está cadastrado";
+        String EMAIL_EXISTENTE = "Esse email já está cadastrado!";
+        String AUTOR_NAO_ENCONTRADO = "O autor com o Id %s não foi encontrado";
     }
 }
