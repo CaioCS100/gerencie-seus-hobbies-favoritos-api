@@ -6,13 +6,14 @@ import br.com.gerenciarhobbies.exception.RecursoExistenteException;
 import br.com.gerenciarhobbies.exception.RecursoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -21,7 +22,7 @@ public class ResourceExceptionHandler {
     public ResponseEntity<DetalhesErro> handleCampoObrigatorioException(CampoObrigatorioException ex,
                                                                         HttpServletRequest request) {
         DetalhesErro erro = new DetalhesErro()
-                .status(400)
+                .status(HttpStatus.BAD_REQUEST.value())
                 .mensagem(ex.getMessage())
                 .horario(obterDataAtual());
 
@@ -32,7 +33,7 @@ public class ResourceExceptionHandler {
     public ResponseEntity<DetalhesErro> handleRecursoNaoEncontradoException(RecursoNaoEncontradoException ex,
                                                                             HttpServletRequest request) {
         DetalhesErro erro = new DetalhesErro()
-                .status(404)
+                .status(HttpStatus.NOT_FOUND.value())
                 .mensagem(ex.getMessage())
                 .horario(obterDataAtual());
 
@@ -43,11 +44,26 @@ public class ResourceExceptionHandler {
     public ResponseEntity<DetalhesErro> handleRecursoExistenteException(RecursoExistenteException ex,
                                                            HttpServletRequest request) {
         DetalhesErro erro = new DetalhesErro()
-                .status(409)
+                .status(HttpStatus.CONFLICT.value())
                 .mensagem(ex.getMessage())
                 .horario(obterDataAtual());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List<DetalhesErro>> handleValidationErros(MethodArgumentNotValidException ex ){
+        BindingResult bindingResult = ex.getBindingResult();
+        List<DetalhesErro> listaErros = new ArrayList<>();
+
+        bindingResult.getAllErrors().stream().map(erro -> listaErros.add(
+                new DetalhesErro(
+                        HttpStatus.BAD_REQUEST.value(),
+                        erro.getDefaultMessage(),
+                        obterDataAtual())))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listaErros);
     }
 
     private Date obterDataAtual() {

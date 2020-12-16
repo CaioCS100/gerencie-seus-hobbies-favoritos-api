@@ -5,8 +5,12 @@ public interface Constantes {
     String SIMBOLO_PORCENTAGEM = "%";
 
     interface URI {
-        String URI_AUTOR = "api/autor";
-        String URI_GENERO = "api/genero";
+        String URI_AUTOR = "api/autores";
+        String URI_GENERO = "api/generos";
+    }
+
+    interface CAMPOS_OBRIGATORIOS {
+        String DESCRICAO_OBRIGATORIA = "O campo Descrição é de preenchimento obrigatório.";
     }
 
     interface Mensagens {

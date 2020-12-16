@@ -15,6 +15,12 @@ public class DetalhesErro {
 
     public DetalhesErro() {}
 
+    public DetalhesErro(Integer status, String mensagem, Date horario) {
+        this.status = status;
+        this.mensagem = mensagem;
+        this.horario = horario;
+    }
+
     public Integer getStatus() {
         return status;
     }

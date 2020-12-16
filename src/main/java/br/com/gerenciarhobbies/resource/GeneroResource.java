@@ -14,6 +14,7 @@ import static br.com.gerenciarhobbies.shared.Constantes.URI.URI_GENERO;
 
 @RestController
 @RequestMapping(URI_GENERO)
+@CrossOrigin("*")
 public class GeneroResource {
 
     private final GeneroService generoService;

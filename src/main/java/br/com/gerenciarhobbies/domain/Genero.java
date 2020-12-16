@@ -1,10 +1,12 @@
 package br.com.gerenciarhobbies.domain;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static br.com.gerenciarhobbies.shared.Constantes.CAMPOS_OBRIGATORIOS.DESCRICAO_OBRIGATORIA;
 
 @Entity
 @Table(schema = "hobbies", name = "generos")
@@ -15,8 +17,7 @@ public class Genero {
     @Column
     private Long id;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = DESCRICAO_OBRIGATORIA)
     @Column
     private String descricao;
 
