@@ -52,15 +52,13 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<DetalhesErro>> handleValidationErros(MethodArgumentNotValidException ex ){
-        BindingResult bindingResult = ex.getBindingResult();
+    public ResponseEntity<List<DetalhesErro>> handleValidationErros(MethodArgumentNotValidException ex) {
         List<DetalhesErro> listaErros = new ArrayList<>();
 
-        bindingResult.getAllErrors().stream().map(erro -> listaErros.add(
-                new DetalhesErro(
-                        HttpStatus.BAD_REQUEST.value(),
-                        erro.getDefaultMessage(),
-                        obterDataAtual())))
+        ex.getBindingResult().getAllErrors().stream().map(erro -> listaErros.add(new DetalhesErro(
+                    HttpStatus.BAD_REQUEST.value(),
+                    erro.getDefaultMessage(),
+                    obterDataAtual())))
                 .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listaErros);
