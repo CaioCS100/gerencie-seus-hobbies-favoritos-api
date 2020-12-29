@@ -7,10 +7,18 @@ public interface Constantes {
     interface URI {
         String URI_AUTOR = "api/autores";
         String URI_GENERO = "api/generos";
+        String URI_USUARIO = "api/usuarios";
+        String URI_AUTENTICACAO = "api/autenticacao";
     }
 
     interface CAMPOS_OBRIGATORIOS {
-        String DESCRICAO_OBRIGATORIA = "O campo Descrição é de preenchimento obrigatório.";
+        String DESCRICAO = "O campo Descrição é de preenchimento obrigatório.";
+        String NOME = "O campo Nome é de preenchimento obrigatório.";
+        String EMAIL = "O campo Email é de preenchimento obrigatório.";
+        String LOGIN = "O campo Login é de preenchimento obrigatório.";
+        String SENHA = "O campo Senha é de preenchimento obrigatório.";
+        String DATA_NASCIMENTO = "O campo Data de Nascimento é de preenchimento obrigatório.";
+        String SEXO = "O campo Sexo é de preenchimento obrigatório.";
     }
 
     interface Mensagens {

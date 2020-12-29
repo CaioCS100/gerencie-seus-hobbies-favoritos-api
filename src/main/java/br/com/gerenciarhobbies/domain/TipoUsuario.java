@@ -1,29 +1,32 @@
 package br.com.gerenciarhobbies.domain;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static br.com.gerenciarhobbies.shared.Constantes.CAMPOS_OBRIGATORIOS.DESCRICAO;
-
 @Entity
-@Table(schema = "hobbies", name = "generos")
-public class Genero {
+@Table(schema = "hobbies", name = "tipos_usuarios")
+public class TipoUsuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @NotNull(message = DESCRICAO)
+    @NotNull
     @Column
     private String descricao;
 
     @Column(name = "data_criacao", updatable = false)
+    @CreationTimestamp
     private LocalDateTime dataCricao;
 
     @Column(name = "data_ultima_modificacao")
+    @CreationTimestamp
     private LocalDateTime dataUltimaModificao;
 
     public Long getId() {
@@ -58,22 +61,22 @@ public class Genero {
         this.dataUltimaModificao = dataUltimaModificao;
     }
 
-    public Genero id(Long id) {
+    public TipoUsuario id(Long id) {
         this.id = id;
         return this;
     }
 
-    public Genero descricao(String descricao) {
+    public TipoUsuario descricao(String descricao) {
         this.descricao = descricao;
         return this;
     }
 
-    public Genero dataCricao(LocalDateTime dataCricao) {
+    public TipoUsuario dataCricao(LocalDateTime dataCricao) {
         this.dataCricao = dataCricao;
         return this;
     }
 
-    public Genero dataUltimaModificao(LocalDateTime dataUltimaModificao) {
+    public TipoUsuario dataUltimaModificao(LocalDateTime dataUltimaModificao) {
         this.dataUltimaModificao = dataUltimaModificao;
         return this;
     }
@@ -82,21 +85,21 @@ public class Genero {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Genero genero = (Genero) o;
-        return Objects.equals(id, genero.id) &&
-                Objects.equals(descricao, genero.descricao) &&
-                Objects.equals(dataCricao, genero.dataCricao) &&
-                Objects.equals(dataUltimaModificao, genero.dataUltimaModificao);
+        TipoUsuario that = (TipoUsuario) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(descricao, that.descricao) &&
+                Objects.equals(dataCricao, that.dataCricao) &&
+                Objects.equals(dataUltimaModificao, that.dataUltimaModificao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descricao, dataCricao, dataUltimaModificao);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Genero{" +
+        return "TipoUsuario{" +
                 "id=" + id +
                 ", descricao='" + descricao + '\'' +
                 ", dataCricao=" + dataCricao +

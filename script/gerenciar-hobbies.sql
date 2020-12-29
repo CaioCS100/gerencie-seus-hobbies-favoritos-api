@@ -3,20 +3,31 @@
 create table hobbies.generos (
 	id serial primary key,
 	descricao character varying(255) not null,
-	-- id_usuario integer not null,
+	-- id_usuario integer not null -- id do usuario que cadastrou esse dado,
+	data_criacao timestamp default current_timestamp,
+	data_ultima_modificacao timestamp default current_timestamp
+);
+
+create table hobbies.tipos_usuarios (
+    id serial primary key,
+	descricao character varying(250) not null,
 	data_criacao timestamp default current_timestamp,
 	data_ultima_modificacao timestamp default current_timestamp
 );
 
 create table hobbies.usuarios(
     id serial primary key,
-    nome varchar(100),
-    data_nascimento date,
-    sexo varchar(1),
-    telefone varchar(15),
-    email varchar(100) unique,
+    nome character varying(150) not null,
+    email character varying(150) not null unique,
+    login character varying(150) not null unique,
+    senha character varying(250) not null,
+    ultima_senha character varying(250),
+    data_nascimento date not null,
+    sexo character varying(1) not null,
+    tipo_usuario_id integer not null,
     data_hora_criacao timestamp default current_timestamp,
-    data_hora_ultima_modificacao timestamp default current_timestamp
+    data_hora_ultima_modificacao timestamp default current_timestamp,
+    foreign key (tipo_usuario_id) references hobbies.tipos_usuarios (id)
 );
 
 create table hobbies.autores(

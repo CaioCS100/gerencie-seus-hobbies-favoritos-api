@@ -1,18 +1,18 @@
 package br.com.gerenciarhobbies.shared.enums;
 
-public enum TipoUsuario {
-    ADMINISTRADOR(1, "Administrador"),
-    USUARIO(2, "Usuário Normal");
+public enum TipoDoUsuario {
+    ADMINISTRADOR(1L, "Administrador"),
+    COMUM(2L, "Comum");
 
-    private Integer codigo;
+    private Long codigo;
     private String descricao;
 
-    TipoUsuario(Integer codigo, String descricao) {
+    TipoDoUsuario(Long codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public Integer getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
