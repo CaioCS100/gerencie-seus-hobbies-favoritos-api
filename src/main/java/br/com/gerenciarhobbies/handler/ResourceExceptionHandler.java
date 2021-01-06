@@ -2,6 +2,7 @@ package br.com.gerenciarhobbies.handler;
 
 import br.com.gerenciarhobbies.domain.DetalhesErro;
 import br.com.gerenciarhobbies.exception.CampoObrigatorioException;
+import br.com.gerenciarhobbies.exception.CredenciaisException;
 import br.com.gerenciarhobbies.exception.RecursoExistenteException;
 import br.com.gerenciarhobbies.exception.RecursoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,16 @@ public class ResourceExceptionHandler {
                 .horario(obterDataAtual());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    @ExceptionHandler(CredenciaisException.class)
+    public ResponseEntity<DetalhesErro> handleCredenciaisException(CredenciaisException ex, HttpServletRequest request) {
+        DetalhesErro erro = new DetalhesErro()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .mensagem(ex.getMessage())
+                .horario(obterDataAtual());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

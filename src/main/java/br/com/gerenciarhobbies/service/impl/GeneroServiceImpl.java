@@ -60,6 +60,6 @@ public class GeneroServiceImpl implements GeneroService {
 
     private void verificarSeDescricaoExiste(Genero genero) {
         if (this.generoRepository.verificarSeDescricaoExiste(genero))
-            throw new RecursoExistenteException(GENERO_JA_CADASTRADO);
+            throw new RecursoExistenteException(GENERO_EXISTENTE);
     }
 }

@@ -24,10 +24,14 @@ public interface Constantes {
     interface Mensagens {
         String ID_OBRIGATORIO = "O Id é um campo de preenchimento obrigatório!";
         String CAMPO_OBRIGATORIO = "Esse campo é de preenchimento obrigatório.";
-        String GENERO_NAO_ENCONTRADO = "Não existe um gênero com Id: ";
-        String GENERO_JA_CADASTRADO = "Esse gênero já está cadastrado no sistema!";
 
-        String EMAIL_EXISTENTE = "Esse email já está cadastrado!";
+        String GENERO_NAO_ENCONTRADO = "Não existe um gênero com Id: ";
         String AUTOR_NAO_ENCONTRADO = "O autor com o Id %s não foi encontrado";
+
+        String GENERO_EXISTENTE = "O Gênero informado já se encontra cadastrado no sistema!";
+        String EMAIL_EXISTENTE = "O Email informado já se encontra cadastrado no sistema!";
+        String LOGIN_EXISTENTE = "O Login informado já se encontra cadastrado no sistema!";
+
+        String LOGIN_INCORRETO = "Login ou Email ou Senha incorretos!";
     }
 }
