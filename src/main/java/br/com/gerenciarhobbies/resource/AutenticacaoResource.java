@@ -2,6 +2,7 @@ package br.com.gerenciarhobbies.resource;
 
 import br.com.gerenciarhobbies.service.UsuarioService;
 import br.com.gerenciarhobbies.shared.dto.LoginDTO;
+import br.com.gerenciarhobbies.shared.dto.TokenDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,8 @@ public class AutenticacaoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> autenticarUsuario(@Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<TokenDTO> autenticarUsuario(@Valid @RequestBody LoginDTO loginDTO) {
         LOGGER.debug("Requisição REST para autenticar um usuário: {}", loginDTO);
-        this.usuarioService.autenticar(loginDTO);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(this.usuarioService.autenticar(loginDTO));
     }
 }

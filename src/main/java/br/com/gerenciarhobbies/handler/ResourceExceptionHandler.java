@@ -7,7 +7,7 @@ import br.com.gerenciarhobbies.exception.RecursoExistenteException;
 import br.com.gerenciarhobbies.exception.RecursoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static br.com.gerenciarhobbies.shared.Constantes.Mensagens.LOGIN_INCORRETO;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -57,6 +59,16 @@ public class ResourceExceptionHandler {
         DetalhesErro erro = new DetalhesErro()
                 .status(HttpStatus.UNAUTHORIZED.value())
                 .mensagem(ex.getMessage())
+                .horario(obterDataAtual());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<DetalhesErro> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+        DetalhesErro erro = new DetalhesErro()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .mensagem(LOGIN_INCORRETO)
                 .horario(obterDataAtual());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);

@@ -32,6 +32,6 @@ public interface Constantes {
         String EMAIL_EXISTENTE = "O Email informado já se encontra cadastrado no sistema!";
         String LOGIN_EXISTENTE = "O Login informado já se encontra cadastrado no sistema!";
 
-        String LOGIN_INCORRETO = "Login ou Email ou Senha incorretos!";
+        String LOGIN_INCORRETO = "Login ou Senha incorretos!";
     }
 }
