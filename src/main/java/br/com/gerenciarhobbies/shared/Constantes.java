@@ -33,5 +33,9 @@ public interface Constantes {
         String LOGIN_EXISTENTE = "O Login informado já se encontra cadastrado no sistema!";
 
         String LOGIN_INCORRETO = "Login ou Senha incorretos!";
+        String ASSINATURA_TOKEN_INVALIDA = "Assinatura do JWT inválida: %s";
+        String TOKEN_EXPIRADO = "Token expirado: %s";
+        String TOKEN_NAO_SUPORTADO = "Token não suportado: %s";
+        String COMPACTACAO_TOKEN_INVALIDA = "Compactação do token inválida: %s";
     }
 }

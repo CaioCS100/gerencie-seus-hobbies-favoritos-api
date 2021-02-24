@@ -1,6 +1,8 @@
 package br.com.gerenciarhobbies.security.jwt;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -27,13 +29,12 @@ public class JWTFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String token = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (naoEstaNulo(token) && token.startsWith(BEARER_TOKEN_PREFIX)) {
-            System.out.println("teste teste");
-//            Authentication authentication = this.tokenProvider
+        if (naoEstaNulo(token) && token.startsWith(BEARER_TOKEN_PREFIX)
+                && this.tokenProvider.validarToken(token.substring(BEARER_TOKEN_PREFIX.length()))) {
+            Authentication authentication = this.tokenProvider.getAuthentication(token.substring(BEARER_TOKEN_PREFIX.length()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
-
-
 }

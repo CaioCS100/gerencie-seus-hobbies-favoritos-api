@@ -1,10 +1,7 @@
 package br.com.gerenciarhobbies.handler;
 
 import br.com.gerenciarhobbies.domain.DetalhesErro;
-import br.com.gerenciarhobbies.exception.CampoObrigatorioException;
-import br.com.gerenciarhobbies.exception.CredenciaisException;
-import br.com.gerenciarhobbies.exception.RecursoExistenteException;
-import br.com.gerenciarhobbies.exception.RecursoNaoEncontradoException;
+import br.com.gerenciarhobbies.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -69,6 +66,16 @@ public class ResourceExceptionHandler {
         DetalhesErro erro = new DetalhesErro()
                 .status(HttpStatus.UNAUTHORIZED.value())
                 .mensagem(LOGIN_INCORRETO)
+                .horario(obterDataAtual());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
+    }
+
+    @ExceptionHandler(TokenException.class)
+    public ResponseEntity<DetalhesErro> handlerTokenException(TokenException ex, HttpServletRequest request) {
+        DetalhesErro erro = new DetalhesErro()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .mensagem(ex.getMessage())
                 .horario(obterDataAtual());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);

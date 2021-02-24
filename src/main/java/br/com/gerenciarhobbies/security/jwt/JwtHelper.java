@@ -1,5 +1,7 @@
 package br.com.gerenciarhobbies.security.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,13 @@ public class JwtHelper {
 
     public byte[] obterBytesSegredoApp() {
         return !StringUtils.isEmpty(segredo) ? obterBytesSegredo(segredo) : obterBytesSegredoBase64();
+    }
+
+    public Claims obterClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(obterSecretKey())
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private byte[] obterBytesSegredo(String segredo) {
